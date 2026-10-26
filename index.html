@@ -1,0 +1,463 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>문학 선지 용어집</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600;700&display=swap">
+<style>
+/* Layout: 시험지 한 면처럼 좁은 단 하나 — 상단 조작줄, 아래로 용어 카드 또는 문항 묶음 */
+:root{
+  --paper:#fbfbf8; --card:#ffffff; --ink:#16171b; --muted:#454852; --line:#c7cad2;
+  --accent:#233f8c; --accent-bg:#e9edf7; --pen:#a1261d; --flash:#fff3c4; --hl:#fff176;
+  --f-display:"Noto Serif KR","Nanum Myeongjo",serif;
+  --f-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#14161b; --card:#1b1e25; --ink:#eceef2; --muted:#b9bdc8; --line:#3a3f4b;
+  --accent:#9db2ef; --accent-bg:#232a3d; --pen:#f1907f; --flash:#4a4120; --hl:rgba(255,226,64,.32); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#14161b; --card:#1b1e25; --ink:#eceef2; --muted:#b9bdc8; --line:#3a3f4b;
+  --accent:#9db2ef; --accent-bg:#232a3d; --pen:#f1907f; --flash:#4a4120; --hl:rgba(255,226,64,.32); color-scheme:dark}
+
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.7;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.wrap{max-width:820px;margin:0 auto;padding-block:28px 64px}
+h1{font-family:var(--f-display);font-size:30px;line-height:1.3;margin:0;text-wrap:balance}
+.sub{color:var(--muted);margin:4px 0 0;font-size:15px}
+
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);
+  padding-block:14px 12px;margin-top:18px;border-bottom:2px solid var(--ink);display:flex;flex-direction:column;gap:10px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:inline-flex;border:1.5px solid var(--ink);border-radius:6px;overflow:hidden}
+.seg button{font:inherit;font-size:15px;font-weight:500;padding:6px 14px;background:transparent;color:var(--ink);border:0;cursor:pointer}
+.seg button+button{border-left:1.5px solid var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+select,input[type=search]{font:inherit;font-size:15px;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:6px;padding:6px 10px}
+input[type=search]{flex:1;min-width:160px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;font-size:14px;padding:3px 11px;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-bg);color:var(--accent);font-weight:700}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.count{font-size:14px;color:var(--muted)}
+
+main{display:flex;flex-direction:column;gap:22px;margin-top:22px}
+.cathead{font-family:var(--f-display);font-size:22px;margin:14px 0 0;padding-bottom:4px;border-bottom:1px solid var(--line)}
+
+/* 용어 카드 */
+.term{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px 20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.term header{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.term h3{font-family:var(--f-display);font-size:22px;margin:0}
+.cat{font-size:13px;font-weight:500;color:var(--accent);border:1px solid var(--accent);border-radius:4px;padding:0 6px;letter-spacing:.02em}
+dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 14px}
+dt{font-weight:700;font-size:15px;white-space:nowrap;padding-top:1px}
+dd{margin:0;min-width:0}
+.exs{display:flex;flex-direction:column;gap:12px;margin-top:4px;padding-top:12px;border-top:1px dashed var(--line)}
+.ex-label{font-size:14px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.sj{margin:2px 0 0}
+.bogi{border:3px double var(--ink);padding:6px 12px;margin-top:4px;border-radius:2px}
+.note{margin:6px 0 0;color:var(--ink)}
+.note b{color:var(--pen);margin-right:6px}
+
+/* 시험별 */
+.q{display:flex;flex-direction:column;gap:14px}
+.q h2{font-family:var(--f-display);font-size:24px;margin:0;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:4px}
+.q h2 small{font-family:var(--f-body);font-size:14px;font-weight:400;color:var(--muted)}
+.item{display:flex;flex-direction:column;gap:10px;min-width:0}
+.item-text{font-weight:500}
+.item-text .no{font-weight:700;margin-right:4px}
+.bogi-tag{font-weight:700;margin-right:6px}
+.eterm{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:4px;padding:10px 16px;margin-left:12px;min-width:0}
+.eterm h4{font-family:var(--f-display);font-size:19px;margin:0 0 4px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.refs{display:flex;flex-wrap:wrap;gap:6px;margin-left:12px}
+.ref{font:inherit;font-size:14px;background:transparent;color:var(--accent);border:1px dashed var(--accent);border-radius:4px;padding:2px 10px;cursor:pointer}
+.flash{animation:flash 1.6s ease-out}
+@keyframes flash{0%{background:var(--flash)}100%{background:var(--card)}}
+@media (prefers-reduced-motion: reduce){.flash{animation:none;outline:3px solid var(--accent)}}
+mark{background:var(--hl);color:inherit;padding:0 1px}
+.del{font:inherit;font-size:13px;margin-left:auto;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:1px 9px;cursor:pointer;white-space:nowrap}
+.del:hover{color:var(--pen);border-color:var(--pen)}
+.ex-head{display:flex;align-items:center;gap:10px}
+.deleted{opacity:.5;border-style:dashed}
+.deleted .del{opacity:1}
+.empty{padding:40px 0;text-align:center;color:var(--muted)}
+
+@media (max-width:520px){
+  h1{font-size:25px}
+  dl{grid-template-columns:1fr} dt{padding-top:6px}
+  .eterm,.refs{margin-left:0}
+  .term{padding:14px 14px}
+}
+</style>
+
+<div class="wrap">
+  <h1>문학 선지 용어집</h1>
+  <p class="sub" id="sub"></p>
+
+  <div class="bar">
+    <div class="row">
+      <div class="seg" role="group" aria-label="보기 방식" id="views">
+        <button type="button" data-v="exam">시험별</button>
+        <button type="button" data-v="abc">가나다순</button>
+        <button type="button" data-v="cat">갈래별</button>
+      </div>
+      <select id="exam" aria-label="시험"></select>
+      <select id="qsel" aria-label="문항"></select>
+      <input type="search" id="search" placeholder="용어·선지 검색" aria-label="검색">
+    </div>
+    <div class="row">
+      <div class="chips" id="cats" role="group" aria-label="갈래"></div>
+      <span class="count" id="count"></span>
+      <button type="button" class="chip" id="showdel" hidden>지운 항목 보기</button>
+      <span class="count" id="msg" role="status"></span>
+    </div>
+  </div>
+
+  <main id="out"></main>
+</div>
+
+<script>
+const CATS = ["표현법","태도·정서","시상 전개·이미지","서술·인물","갈래·맥락"];
+const EXAMS = { "26수능": "2026학년도 수능" };
+const NO = ["","①","②","③","④","⑤"];
+const WORKS = {
+  "26수능": [
+    [18,21,"작자 미상, 「수궁가」"],
+    [22,26,"이시영, 「그리움」 · 고재종, 「감나무 그늘 아래」 · 이이, 「최립에게 주는 글」"],
+    [27,30,"박태순, 「독가촌 풍경」"],
+    [31,34,"구강, 「북새곡」 · 작자 미상, 사설시조"]
+  ]
+};
+
+/* 선지·<보기> 문장. c=0 은 <보기> */
+const ITEMS = {
+ "26-19-3":{e:"26수능",q:19,c:3,t:"㉢은 호랑이가 안도감을 나타내는 공간으로, 이곳에서 호랑이는 살아남은 것을 자신의 능력을 넘어서는 뜻밖의 행운이라고 여겼다."},
+ "26-21-0":{e:"26수능",q:21,c:0,t:"「수궁가」는 우화에서 판소리 사설로 발전한 작품입니다."},
+ "26-21-1":{e:"26수능",q:21,c:1,t:"‘사냥개’에 대한 토끼의 평가에서, 현실에서 사냥개가 사람에게 길들여진 것을 우화 속 상황에 중첩함으로써 강자의 환심을 사 이익을 얻는 인간에 대한 비판이 드러남을 알 수 있군."},
+ "26-21-2":{e:"26수능",q:21,c:2,t:"자라가 ‘동의보감’을 떠올린 데서, 현실의 의서를 우화 속 상황에 중첩함으로써 명약을 탐하는 속내를 지식을 내세워 숨기는 위선적 인간에 대한 비판이 드러남을 알 수 있군."},
+ "26-21-3":{e:"26수능",q:21,c:3,t:"‘포수’에 대한 호랑이의 태도에서, 현실의 인간이 지닌 힘을 우화 속 인물들의 위계질서에 중첩함으로써 권력자가 상대에 대한 두려움을 보여 위신을 잃는 상황이 강조됨을 알 수 있군."},
+ "26-21-5":{e:"26수능",q:21,c:5,t:"호랑이가 ‘해남’에서 ‘압록강 가’까지 뛴 데서, 현실의 지명을 우화 속 공간에 중첩함으로써 실제라면 단숨에 닿기 불가능한 거리를 이동하는 상황이 과장되게 표현된 것임을 알 수 있군."},
+ "26-22-1":{e:"26수능",q:22,c:1,t:"(가)는 계절을 나타내는 소재로 시적 분위기를 조성하고 있다."},
+ "26-22-2":{e:"26수능",q:22,c:2,t:"(나)는 자연을 관조하며 시적 상황을 탈속적 태도로 바라보고 있다."},
+ "26-22-3":{e:"26수능",q:22,c:3,t:"(다)는 글쓴이와 타인의 생각을 비교하며 세태를 비판하고 있다."},
+ "26-22-4":{e:"26수능",q:22,c:4,t:"(가)와 (다)는 모두, 연쇄적 표현을 통해 주체의 태도 변화 과정을 보여 주고 있다."},
+ "26-22-5":{e:"26수능",q:22,c:5,t:"(나)와 (다)는 모두, 가정적 표현을 통해 대상의 속성을 드러내고 있다."},
+ "26-23-0a":{e:"26수능",q:23,c:0,t:"(가)는 연대를 상실한 암울한 현실 상황을 어두운 밤으로 표상하고, 빛이 회복되는 미래에 대한 소망을 드러낸다."},
+ "26-23-0b":{e:"26수능",q:23,c:0,t:"이러한 소망은 소금을 뿌리며 그리운 이를 찾아다니는 행동으로 형상화된다."},
+ "26-23-0c":{e:"26수능",q:23,c:0,t:"이러한 성찰은 자연물과 내면을 동일시하며 시간의 흐름에 따른 변화의 양상을 그려 내는 방식으로 나타난다."},
+ "26-23-2":{e:"26수능",q:23,c:2,t:"(가)에서 ‘오던 길’을 ‘소금들’이 ‘환히 비춰 주’는 것은, ‘두고 온 것들’이 되살아날 미래를 기대하게 한다는 점에서 빛의 회복에 대한 소망이 실현될 수 있음을 암시하겠군."},
+ "26-23-3":{e:"26수능",q:23,c:3,t:"(나)에서 ‘반짝’이는 ‘잎새’와 ‘그늘’을 함께 지닌 ‘감나무’ 아래에 ‘평상을 놓’는 것은, 밝음과 어두움이 어우러져 있는 자연에서 내면에 대한 성찰을 이어 가고 있음을 나타내는군."},
+ "26-24-1":{e:"26수능",q:24,c:1,t:"㉠이 ‘목메이게 부르짖’는 것과 ㉡을 찾고자 ‘숨가쁘게’ 길을 넘는 것에는 모두, 대상을 향한 간절한 마음이 드러난다."},
+ "26-26-0":{e:"26수능",q:26,c:0,t:"(다)는 마음에서 기가 움직여 뜻이 소리로 나오는 데 있어 도리에 합당해야 좋은 글[文]이라는 글쓴이의 문학론을 바탕으로, 상대의 문장을 평가하며 칭찬과 당부를 전하고 있다."},
+ "26-26-1":{e:"26수능",q:26,c:1,t:"‘만물’이 소리 나는 이치에서 시작하여 ‘사람’이 소리를 내는 이치를 밝히며, 소리를 화두로 삼아 문장에 대해 말하고 있군."},
+ "26-26-4":{e:"26수능",q:26,c:4,t:"최립의 문장에 담긴 ‘뜻’이 도리에 합당함을 향하고 있음을 언급하며, 그가 학업에 정진할 것을 당부하고 있군."},
+ "26-26-5":{e:"26수능",q:26,c:5,t:"글로 드러난 최립의 소리가 크게 나는 것이 그의 ‘마음’과 ‘기’에서 비롯됨을 언급하여, 그의 문장이 뜻을 크게 드러내고 있음을 칭찬하고 있군."},
+ "26-27-4":{e:"26수능",q:27,c:4,t:"온 씨가 공격적인 태도를 보이자 허명두는 에둘러 말하여 상대의 관심을 다른 곳으로 돌릴 수 있었다."},
+ "26-27-5":{e:"26수능",q:27,c:5,t:"온 씨는 상대의 행위를 평가하는 표현을 반복하며 허명두에게 꾸미고 있는 일을 그만두라고 경고하였다."},
+ "26-30-0a":{e:"26수능",q:30,c:0,t:"윗글에서 서술자는 부정적 인물인 허명두에게 초점화하여 그의 내면을 서술하였다."},
+ "26-30-0b":{e:"26수능",q:30,c:0,t:"이는 인물의 생각을 타당한 것처럼 보이게 하지만 한편으로는 상황을 자신에게 유리하게 해석하는 인물의 태도를 드러내어, 서술의 이면에 그 부정성에 대한 서술자의 비판이 함께 있음을 보여 준다."},
+ "26-30-1":{e:"26수능",q:30,c:1,t:"㉠ : 인물과 상대를 ‘두 종류의 인간군’으로 일반화함으로써 상대와의 인식 차이가 좁힐 수 없는 것임을 드러내어, 상대와 소통이 어렵다는 인물의 생각이 타당한 것처럼 서술하였다."},
+ "26-30-2":{e:"26수능",q:30,c:2,t:"㉡ : 마을의 상황을 ‘싸움’으로 주관화함으로써 상대가 추구하는 ‘사리의 옳음’이 싸움에서 이기는 데에 유용하지 않음을 드러내어, 인물의 생각이 타당한 것처럼 서술하였다."},
+ "26-30-3":{e:"26수능",q:30,c:3,t:"㉢ : 상황 변화가 ‘안정’을 위협한다는 상대의 생각을 헤아림으로써 변화의 부정성을 인정하면서도 무엇이 변화의 원인인지는 달리 보아, 인물의 왜곡된 시선이 드러나도록 서술하였다."},
+ "26-30-4":{e:"26수능",q:30,c:4,t:"㉣ : ‘실리’를 추구한 측이 언제나 우위를 차지했다며 과거의 경험을 일반화함으로써 현재 상황에서도 실리가 우선되어야 한다고 합리화하여, 인물의 생각이 타당한 것처럼 서술하였다."},
+ "26-30-5":{e:"26수능",q:30,c:5,t:"㉤ : ‘그것’이 지나가고 있음에도 ‘아직’은 유효하다고 주관화함으로써 현실의 변화를 인식하면서도 기존의 선택을 고수하여, 인물의 자기중심적 태도가 드러나도록 서술하였다."},
+ "26-31-1":{e:"26수능",q:31,c:1,t:"(가)는 남의 말을 인용하여 목적지의 위험성을 드러내고 있다."},
+ "26-31-2":{e:"26수능",q:31,c:2,t:"(가)는 대구와 대조 표현을 함께 사용하여 화자의 괴로운 처지를 드러내고 있다."},
+ "26-31-3":{e:"26수능",q:31,c:3,t:"(나)는 가상의 존재에 빗대는 표현을 사용하여 자연 현상의 변화를 드러내고 있다."},
+ "26-31-4":{e:"26수능",q:31,c:4,t:"(나)는 방위의 의미를 포함한 두 어휘를 사용하여 대상이 서로 반대 방향으로 이동함을 드러내고 있다."},
+ "26-31-5":{e:"26수능",q:31,c:5,t:"(가)와 (나)는 모두, 색채를 나타내는 표현을 통해 배경 속에서 대상의 움직임을 뚜렷하게 드러내고 있다."},
+ "26-34-0":{e:"26수능",q:34,c:0,t:"(나)와 (다)는 동일한 소재를 중심으로 시상을 전개하며, 구체적이고 생동감 있는 표현을 통해 대상이 그 자체로 부각되는 모습을 보여 준다."},
+ "26-34-1":{e:"26수능",q:34,c:1,t:"(가)에서 얼음물에 빠져 ‘버선 행전’ 다 적시는 대목은 경험을 실감 나게 보여 주면서 화자를 장면 속에서 대상화하여 ‘동태가 되었더라’라고 우스꽝스럽게 표현하는군."},
+ "26-34-3":{e:"26수능",q:34,c:3,t:"(다)에서 연이 ‘솟아올라 구름’에 걸치는 것을 보고 화자가 연줄의 힘을 빌려 ‘먼 데 임’에게 가려고 하는 것은 대상의 역동성이 화자의 욕망을 불러일으키는 모습을 보여 주는군."},
+ "26-34-5":{e:"26수능",q:34,c:5,t:"(나)는 연이 ‘굼틀뒤틀 뒤틀어져’ 올라가는 모습을 생동감 있게 묘사하여, (다)는 연의 재료를 ‘강원도 설화지’로 구체적으로 제시하고 ‘크기’까지 언급함으로써 대상 자체를 부각하는군."}
+};
+
+/* 용어. ex: [선지 id, 판단 포인트] */
+const TERMS = [
+ {n:"연쇄적 표현",c:"표현법",d:"앞 구절의 끝말을 다음 구절의 첫머리에서 이어받아 꼬리를 물듯 이어 가는 표현.",k:"‘…A / A…’처럼 끝과 처음이 맞물리는 자리가 있는가. 있다면 선지가 붙인 효과(태도 변화, 의미 확장 등)까지 성립하는가.",p:"반복(같은 말을 되풀이), 점층(의미를 점점 키움)",
+  ex:[["26-22-4","(가)의 ‘잦아드는 때가 있다 / 잦아드는 외마디 소리’, (다)의 ‘쓸모 있는 소리에는… / 아름다운 소리에는…’에 연쇄가 보인다. 표현이 있는지가 아니라 ‘주체의 태도 변화 과정’과 이어지는지를 따져야 한다."]]},
+ {n:"가정적 표현",c:"표현법",d:"‘-다면’, ‘-면’, ‘-ㄹ진대’처럼 실제가 아닌 상황을 조건으로 세워 말하는 표현.",k:"조건을 거는 어미가 있는가. 그 가정을 통해 대상의 어떤 속성이 드러나는가.",p:"설의적 표현(답이 정해진 의문 형식, 예: ‘어찌 바람뿐이랴’). 한 문장에 둘이 함께 쓰이는 경우가 많다.",
+  ex:[["26-22-5","(나) ‘등불을 밝힐 것이라면 / 세상은 어찌 환하지 않으랴’, (다) ‘학업을 게을리하지 않는다면 바르게 되는 데 무슨 어려움이 있겠는가’."]]},
+ {n:"반복",c:"표현법",d:"같은 낱말·구절·문장을 되풀이하여 의미를 강조하거나 리듬을 만드는 표현.",k:"되풀이되는 말이 실제로 있는가. 그 반복이 선지가 말하는 기능(강조, 경고 등)을 하는가.",p:"연쇄적 표현(끝말을 이어받음)",
+  ex:[["26-27-5","온 씨는 허명두의 행위를 ‘서툰 짓’이라 되풀이해 부르고, ‘당신 같은 사람들이 날뛰던 시대는 서서히 지나가고 있다’는 경고도 반복한다."]]},
+ {n:"대구",c:"표현법",d:"짜임이 같거나 비슷한 구절을 나란히 놓는 표현.",k:"문장 구조가 짝을 이루는가. 선지에서 대조와 함께 묶여 나오면 두 조건을 각각 확인한다.",p:"대조(의미의 반대). 대구는 형식, 대조는 의미의 개념이다.",
+  ex:[["26-31-2","‘여러 달 주리다가… / 여러 날 칩떨다가…’, ‘고맙단 이 잠깐이오 / 원수는 대대로다’."]]},
+ {n:"대조",c:"표현법",d:"서로 반대되거나 차이가 큰 대상·상황을 맞세워 차이를 부각하는 방법.",k:"무엇과 무엇이 맞서는지 두 항을 모두 짚을 수 있는가.",p:"대구(형식의 짝)",
+  ex:[["26-31-2","‘고맙단 이 잠깐이오 / 원수는 대대로다’에서 ‘잠깐’과 ‘대대로’가 맞선다."]]},
+ {n:"빗대는 표현 (비유)",c:"표현법",d:"대상을 다른 사물에 견주어 나타내는 표현. 직유(‘~같이’, ‘~듯’), 은유, 의인 등을 아우른다.",k:"무엇을 무엇에 빗댔는가. 빗댄 결과 드러나는 것이 선지의 내용과 맞는가.",p:"의인(사람이 아닌 것을 사람처럼), 활유(생명 없는 것을 생물처럼)",
+  ex:[["26-31-3","(나) ‘백룡의 굽이같이’는 상상의 존재에 빗댄 것이 맞지만, 빗대어 드러낸 것은 연의 움직임이다. 자연 현상의 변화인지 확인해야 한다."]]},
+ {n:"색채어",c:"표현법",d:"빛깔을 나타내는 말. 장면을 선명하게 하거나 분위기·정서를 드러낸다.",k:"선지가 ‘모두’라고 할 때 두 작품 각각에 색채어가 있는가. 그 색채어가 선지가 말하는 기능을 하는가.",p:"색채 대비(두 색을 맞세움)",
+  ex:[["26-31-5","(나)에는 ‘하얀 실’, ‘백룡’이 있다. (가)에도 색채 표현이 있는지, 그것이 대상의 움직임을 드러내는지 각각 확인한다."]]},
+ {n:"방위 어휘",c:"표현법",d:"동서남북처럼 방향을 나타내는 말.",k:"방위어가 실제로 대상의 이동 방향을 나타내는가. ‘반대 방향’처럼 관계까지 말하면 그 관계도 맞는지 본다.",p:"",
+  ex:[["26-31-4","‘서풍’은 바람이 불어오는 쪽, ‘동해’는 연이 가는 곳이다. 두 대상이 서로 반대로 움직이는 장면은 아니다."]]},
+ {n:"인용",c:"표현법",d:"남의 말이나 글을 끌어와 쓰는 것. 직접 인용과 간접 인용이 있다.",k:"누구의 말인지 출처가 있는가. 그 말이 선지가 말하는 내용을 드러내는가.",p:"",
+  ex:[["26-31-1","‘종성 가기 오십 리가 된다 하니’는 남의 말을 옮긴 것이지만 위험성이 아니라 거리를 전한다."]]},
+ {n:"과장",c:"표현법",d:"실제보다 훨씬 크거나 작게 부풀려 나타내는 표현. 판소리에서는 흥미와 웃음을 만든다.",k:"현실이라면 불가능한 정도인가.",p:"",
+  ex:[["26-21-5","호랑이가 전라도 ‘해남’에서 뛰어 의주 ‘압록강 가’에서야 숨을 쉰다."]]},
+
+ {n:"관조",c:"태도·정서",d:"대상에 끼어들지 않고 한 발 물러서서 고요히 바라보는 태도.",k:"화자가 대상과 거리를 두는가, 아니면 감정을 싣고 말을 걸거나 행동하는가.",p:"성찰(바라보며 자기 내면을 돌아봄)",
+  ex:[["26-22-2","(나)의 화자는 감나무를 바라보지만 ‘사랑’, ‘그리움’, ‘기다림’을 대상에 겹쳐 놓고, ‘들어 보게’처럼 말을 건넨다."]]},
+ {n:"탈속적 태도",c:"태도·정서",d:"세속의 욕망·이해관계를 벗어나 초연하게 지내려는 태도. 자연 친화, 안빈낙도와 자주 함께 쓰인다.",k:"세속과 대비되는 공간이나 세속을 멀리하겠다는 진술이 있는가.",p:"자연 친화(자연을 가까이하며 즐김)",
+  ex:[["26-22-2","자연이 배경이라는 것만으로 탈속적 태도가 되지는 않는다. (나)는 이별 뒤의 그리움과 성숙을 다룬다."]]},
+ {n:"성찰",c:"태도·정서",d:"자기 삶이나 내면을 돌아보고 깊이 살피는 일.",k:"화자의 시선이 대상에서 자기 자신으로 돌아오는 지점이 있는가.",p:"관조(거리를 두고 바라봄)",
+  ex:[["26-23-3","<보기>의 ‘성숙에 대한 성찰’과 이어진다. 감나무 아래 평상을 놓고 밤과 새벽을 보내는 행위가 성찰의 근거가 된다."]]},
+ {n:"동일시",c:"태도·정서",d:"화자가 대상을 자신과 같은 처지·마음으로 여기는 것.",k:"대상의 변화가 곧 화자 내면의 변화로 읽히는가.",p:"감정 이입(화자의 감정을 대상에 옮겨 넣음)",
+  ex:[["26-23-0c","(나)에서 감이 ‘익어’ 가는 것과 그리움·서러움이 ‘익어’ 가는 것이 겹친다."]]},
+ {n:"간절함",c:"태도·정서",d:"대상을 향한 마음이 절박하고 애틋한 상태.",k:"반복, 부르짖음, 서두름 같은 행위·표현이 근거가 되는가.",p:"",
+  ex:[["26-24-1","(가)의 ‘목메이게 부르짖’는 것, ‘숨가쁘게’ 길을 넘는 것이 근거다."]]},
+ {n:"해학",c:"태도·정서",d:"대상을 우스꽝스럽게 그려 웃음을 주되, 공격성보다는 너그러움이 담긴 웃음.",k:"웃음이 생기는 장면인가. 웃음의 방향이 공격(풍자)인지 너그러움(해학)인지.",p:"풍자(대상을 비꼬아 비판)",
+  ex:[["26-34-1","얼음물에 빠진 자신을 ‘동태가 되었더라’라고 그려, 화자가 자기 자신을 웃음거리로 삼는다."]]},
+ {n:"정서의 촉발",c:"태도·정서",d:"어떤 대상을 보고 감정이나 욕망이 새로 일어나는 것.",k:"정서가 대상보다 먼저 있었는가(정서를 대상에 담음), 대상을 본 뒤 생겼는가(대상이 정서를 촉발함).",p:"정서의 투영(이미 있는 정서를 대상에 담음)",
+  ex:[["26-34-3","연을 보고 ‘먼 데 임’을 떠올리는 것은 정서의 촉발이다. 다만 화자는 임을 ‘낚아 올까’ 한다. 임에게 가려는 것인지, 임을 끌어오려는 것인지 확인해야 한다."]]},
+ {n:"자기중심적 태도",c:"태도·정서",d:"상황을 자신에게 유리한 쪽으로만 해석하고 판단하는 태도.",k:"인물이 변화를 알면서도 기존 선택을 고수하는가.",p:"합리화(그럴듯한 이유로 정당화)",
+  ex:[["26-30-5","허명두는 ‘당신 같은 사람들이 날뛰던 시대는 서서히 지나가고 있다’는 말을 실감하면서도 ‘아직까지는 완전히 지나간 게 아니라’고 본다."]]},
+
+ {n:"시적 분위기 조성",c:"시상 전개·이미지",d:"소재·이미지·어조로 작품 전체의 느낌(쓸쓸함, 경쾌함 등)을 만들어 내는 것.",k:"선지가 지목한 소재(예: 계절을 나타내는 소재)가 작품에 실제로 있는가.",p:"시간적 배경 ↔ 계절적 배경",
+  ex:[["26-22-1","(가)에는 ‘저녁’, ‘새벽’, ‘밤’처럼 시간을 나타내는 말은 있지만 계절을 나타내는 소재는 드러나지 않는다."]]},
+ {n:"표상",c:"시상 전개·이미지",d:"추상적인 상황이나 관념을 구체적인 이미지로 대신 나타내는 것.",k:"이미지 A가 무엇(B)을 나타내는지 짝을 지을 수 있는가.",p:"형상화(구체적 모습으로 그려 냄)",
+  ex:[["26-23-0a","‘어두운 밤’이라는 이미지가 ‘연대를 상실한 암울한 현실’을 대신 나타낸다."]]},
+ {n:"형상화",c:"시상 전개·이미지",d:"생각·정서처럼 형체 없는 것을 구체적인 행동이나 모습으로 그려 내는 것.",k:"어떤 정서가 어떤 행동·장면으로 바뀌어 나타났는가.",p:"표상(이미지로 대신함)",
+  ex:[["26-23-0b","빛의 회복에 대한 소망이 ‘소금을 뿌리며’ 그리운 이를 찾아다니는 행동으로 그려진다."]]},
+ {n:"명암 이미지",c:"시상 전개·이미지",d:"밝음과 어두움의 대비로 의미를 만드는 이미지.",k:"밝음과 어두움이 서로 대립하는가, 한 대상 안에 함께 있는가.",p:"",
+  ex:[["26-23-3","(가)는 어둠에서 빛으로의 회복을, (나)는 ‘반짝’이는 잎새와 ‘그늘’이 함께 있는 감나무를 보여 준다."]]},
+ {n:"시간의 흐름에 따른 변화",c:"시상 전개·이미지",d:"시간이 지나면서 대상이나 화자의 상태가 바뀌는 모습으로 시상을 펼치는 방식.",k:"시간 표지(‘아까는’, ‘시방은’, ‘날로’, ‘마침내’)와 그에 따른 변화가 있는가.",p:"계절의 변화, 시간의 역전",
+  ex:[["26-23-0c","(나)에서 땡감이 ‘주먹송이처럼’ 커 가고, ‘짙푸른 감들’이 마침내 ‘등불을 밝힐’ 것이라는 흐름."]]},
+ {n:"암시",c:"시상 전개·이미지",d:"직접 말하지 않고 넌지시 드러내는 것.",k:"무엇을 암시하는지 작품 속 근거로 연결되는가.",p:"",
+  ex:[["26-23-2","‘소금들’이 ‘오던 길’을 비추는 장면이 빛의 회복에 대한 소망이 실현될 가능성을 넌지시 드러낸다."]]},
+ {n:"소재 중심의 시상 전개",c:"시상 전개·이미지",d:"하나의 소재를 중심에 두고 생각과 정서를 펼쳐 나가는 방식.",k:"같은 소재를 다루어도 화자가 그 소재를 어떻게 대하는지 비교한다.",p:"",
+  ex:[["26-34-0","(나)와 (다)는 모두 ‘연’을 중심 소재로 한다. (나)는 시름을 연에 담아 보내고, (다)는 연을 보고 임을 떠올린다."]]},
+ {n:"생동감 있는 묘사",c:"시상 전개·이미지",d:"대상의 움직임이나 모습을 살아 있는 듯 구체적으로 그려 내는 것. 음성 상징어, 구체적 정보가 근거가 된다.",k:"움직임을 그리는 말(의태어·의성어)이나 구체적 정보가 있는가.",p:"",
+  ex:[["26-34-5","(나)의 ‘굼틀뒤틀 뒤틀어져’, (다)의 ‘강원도 설화지’, ‘제 크기로’가 근거다."]]},
+
+ {n:"서술자",c:"서술·인물",d:"이야기를 들려주는 존재. 작품 밖에서 전하는지, 안에서 전하는지에 따라 시점이 갈린다.",k:"지금 이 문장은 인물의 말인가, 서술자의 말인가, 인물 내면을 서술자가 옮긴 것인가.",p:"작가(작품을 쓴 실제 사람)",
+  ex:[["26-30-0b","인물의 생각이 타당해 보이게 서술되지만, 그 이면에 서술자의 비판이 있다는 설명이다."]]},
+ {n:"초점화",c:"서술·인물",d:"서술자가 특정 인물의 눈과 마음에 맞추어 이야기를 전하는 것. 그 인물의 생각이 그 인물의 관점 그대로 서술된다.",k:"누구의 내면이 서술되는가. 초점 인물의 판단을 서술자의 판단으로 오해하지 않는다.",p:"시점(누가 이야기하는가)",
+  ex:[["26-30-0a","서술이 허명두의 눈으로 진행되므로, 그의 판단을 서술자나 작가의 판단으로 읽지 않아야 한다."]]},
+ {n:"내면 서술",c:"서술·인물",d:"인물의 생각·감정을 서술자가 직접 드러내는 서술.",k:"따옴표 없이 인물의 생각이 서술되는 부분을 찾는다.",p:"",
+  ex:[["26-30-0a","‘명분이나 사리의 옳음이란 것이 싸움에 무슨 필요가 있단 말인가’처럼 따옴표 없이 허명두의 생각이 서술된다."]]},
+ {n:"일반화",c:"서술·인물",d:"개별 경험이나 사례를 넓혀 모든 경우에 해당하는 것처럼 말하는 것.",k:"‘항상’, ‘언제나’, ‘두 종류의 인간’ 같은 넓히는 말이 있는가.",p:"",
+  ex:[["26-30-1","온 씨와 말이 통하지 않는 경험을 ‘두 종류의 인간군’으로 넓혀 말한다."],["26-30-4","‘명분보다는 실리를 추구해 오는 측이 항상 이겨 오고 있었던 게 아닌가’에서 ‘항상’이 일반화의 표지다."]]},
+ {n:"주관화",c:"서술·인물",d:"객관적 상황을 자기 관점으로 바꾸어 해석하는 것.",k:"상황을 부르는 이름이 인물의 관점을 드러내는가.",p:"",
+  ex:[["26-30-2","마을 사람들과의 갈등을 ‘싸움’이라 부르는 데서 허명두의 관점이 드러난다."],["26-30-5","‘문제는 그것이 아직까지는 완전히 지나간 게 아니라는 데 있었다’에서 변화를 자기 식으로 해석한다."]]},
+ {n:"합리화",c:"서술·인물",d:"자신의 행동이나 판단을 그럴듯한 이유를 붙여 정당한 것처럼 만드는 것.",k:"인물이 근거를 대는 방식이 타당한가, 자기에게 유리한가.",p:"자기중심적 태도",
+  ex:[["26-30-4","과거 경험을 근거로 현재에도 실리가 우선되어야 한다며 자기 선택을 정당화한다."]]},
+ {n:"상대의 생각 헤아리기",c:"서술·인물",d:"인물이 상대가 무엇을 말하고 싶어 하는지 짐작하는 서술.",k:"헤아린 뒤 인물이 그 생각을 받아들이는가, 인정하면서도 다르게 해석하는가.",p:"",
+  ex:[["26-30-3","허명두는 온 씨가 하고 싶은 말을 헤아리고 ‘온 씨의 주장은 옳은 것이었다’고 인정하면서도, 사리만으로는 모자란다고 본다."]]},
+ {n:"에둘러 말하기",c:"서술·인물",d:"하고 싶은 말을 바로 하지 않고 돌려 말하는 것.",k:"실제 대화에서 인물이 돌려 말했는가, 그 결과 상대의 관심이 정말로 다른 데로 갔는가.",p:"",
+  ex:[["26-27-4","허명두는 협박에 ‘해볼 대로 해보라지’라고 맞서고, 온 씨는 경고를 되풀이한다."]]},
+ {n:"화자의 대상화",c:"서술·인물",d:"화자가 자신을 바깥에서 보듯 하나의 장면 속 대상으로 그리는 것. 시가의 해학과 자주 함께 쓰인다.",k:"화자가 ‘나’를 남 이야기하듯 묘사하는가.",p:"",
+  ex:[["26-34-1","‘이 몰골 이 거동을 남 뵈기 부끄럽다’처럼 화자가 자신을 바깥에서 보듯 그린다."]]},
+ {n:"공간의 의미",c:"서술·인물",d:"작품 속 공간이 사건의 무대를 넘어 인물의 처지·정서·관계를 드러내는 역할.",k:"그 공간에서 실제로 일어난 일과 인물의 말이 선지의 설명과 맞는가.",p:"배경(시간적·공간적 배경)",
+  ex:[["26-19-3","㉢ ‘세수람 고개’에서 호랑이는 ‘내 용맹이나 된 게 여기까지 살아왔지’라며 살아남은 것을 자기 능력 덕으로 돌린다."]]},
+
+ {n:"우화",c:"갈래·맥락",d:"동물이나 사물을 사람처럼 등장시켜 인간 세상의 모습을 빗대어 보여 주는 이야기.",k:"동물의 행동이 현실의 어떤 인간형과 겹치는가.",p:"의인화",
+  ex:[["26-21-0","동물(호랑이·자라·토끼)이 사람처럼 말하고 행동하는 이야기에서 출발했다는 설명이다."]]},
+ {n:"판소리 사설과 장단",c:"갈래·맥락",d:"판소리의 노랫말 전체. 노래로 부르는 ‘창’과 말로 하는 ‘아니리’가 번갈아 나오며, 창은 장단(빠르기)으로 구분된다. 느림 → 빠름: 진양조 · 중모리 · 중중모리 · 자진모리 · 휘모리. 엇모리는 신비롭거나 비범한 인물이 등장할 때 주로 쓰인다.",k:"장면의 긴박함과 장단의 빠르기가 어울리는지 본다.",p:"창 ↔ 아니리",
+  ex:[["26-21-0","호랑이가 등장하는 대목은 [엇모리], 호랑이가 달아나는 대목은 [휘모리]로 불린다."]]},
+ {n:"중첩",c:"갈래·맥락",d:"우화 속 세계에 청중이 사는 현실의 요소를 겹쳐 놓는 것.",k:"겹쳐진 현실 요소가 누구의 말·행동에 들어 있는지, 그 결과가 비판·강조·과장 중 무엇인지.",p:"",
+  ex:[["26-21-1","토끼는 사냥개가 ‘사람 집에 기식’하며 같은 모족을 해친다고 말한다. 현실의 사냥개가 우화 속 상황에 겹쳐진다."]]},
+ {n:"풍자·비판",c:"갈래·맥락",d:"대상의 결함이나 부정적 면모를 비꼬거나 드러내어 문제 삼는 것.",k:"비판의 대상이 누구인지, 그 근거가 되는 말·행동이 작품에 있는지.",p:"해학(너그러운 웃음)",
+  ex:[["26-21-1","아첨으로 강자에게 붙어 같은 무리를 해치는 인간형을 꼬집는다."]]},
+ {n:"위선",c:"갈래·맥락",d:"속마음은 그렇지 않으면서 겉으로만 착하거나 옳은 척하는 것.",k:"겉과 속이 다른 인물이 실제로 누구인가. 인물을 바꿔 놓은 선지에 주의한다.",p:"",
+  ex:[["26-21-2","‘동의보감’을 통달한 듯 보는 대로 약 취해 먹으려 드는 것은 호랑이이고, 자라는 이를 비꼬아 말한다. 비판 대상이 누구인지 확인해야 한다."]]},
+ {n:"위계질서",c:"갈래·맥락",d:"지위나 힘의 높고 낮음에 따른 질서.",k:"작품 속 권력자가 누구이며, 그 권력이 흔들리는 장면이 있는가.",p:"",
+  ex:[["26-21-3","‘수령’인 호랑이가 ‘일등 포수’의 조총을 두려워한다."]]},
+ {n:"세태 비판",c:"갈래·맥락",d:"세상 사람들의 풍습이나 형편, 시대의 모습을 문제 삼는 것.",k:"비판의 대상이 특정 개인인지, 사회 전반의 풍조인지.",p:"인물 비판",
+  ex:[["26-22-3","(다)는 최립의 문장을 평가하고 당부하는 글로, 세상 풍조를 비판하는 글이 아니다."]]},
+ {n:"문학론",c:"갈래·맥락",d:"문학(글)이 무엇이며 어떠해야 하는지에 대한 글쓴이의 생각.",k:"글쓴이가 좋은 글의 조건을 어떻게 정의하는가.",p:"",
+  ex:[["26-26-0","마음에서 기가 움직여 뜻이 소리로 나오되, 도리에 합당해야 좋은 글이라는 이이의 생각이다."]]},
+ {n:"화두",c:"갈래·맥락",d:"이야기를 풀어 가는 출발점이 되는 중심 소재나 주제.",k:"글이 어떤 소재에서 출발해 무엇으로 넘어가는가.",p:"",
+  ex:[["26-26-1","(다)는 초목·금석이 소리 나는 이치에서 사람의 소리로, 다시 최립의 문장으로 이어진다."]]},
+ {n:"칭찬과 당부",c:"갈래·맥락",d:"상대의 장점을 높이 평가하고, 앞으로 해야 할 일을 부탁하는 것. 누군가에게 주는 글에 자주 나온다.",k:"칭찬의 근거와 당부의 내용을 각각 찾는다.",p:"",
+  ex:[["26-26-4","‘그 뜻은 바름을 향한다’(칭찬), ‘학업을 게을리하지 않는다면’(당부)."],["26-26-5","‘최립은 소리가 크니 그 본체가 큰 것을 알 만하다’, ‘최립의 기는 가히 크다’가 칭찬의 근거다."]]}
+];
+/* 배포본에서는 DIST=true, BAKED_DELETED에 지운 항목 목록이 들어간다 */
+const DIST = true;
+const BAKED_DELETED = [];
+function hashKey(s){let h=5381;for(const ch of s)h=(Math.imul(h,33)^ch.codePointAt(0))>>>0;return h.toString(16).padStart(8,"0");}
+TERMS.forEach(t=>t.id="t-"+hashKey(t.n));
+
+/* 선지 안에서 표시할 표현 */
+const MARK = {
+ "연쇄적 표현":["연쇄적 표현"], "가정적 표현":["가정적 표현"], "반복":["반복"], "대구":["대구"], "대조":["대조"],
+ "빗대는 표현 (비유)":["빗대는 표현"], "색채어":["색채를 나타내는 표현"], "방위 어휘":["방위의 의미를 포함한 두 어휘"],
+ "인용":["인용"], "과장":["과장되게"], "관조":["관조"], "탈속적 태도":["탈속적 태도"], "성찰":["성찰"],
+ "동일시":["동일시"], "간절함":["간절한 마음"], "해학":["우스꽝스럽게"], "정서의 촉발":["욕망을 불러일으키는"],
+ "자기중심적 태도":["자기중심적 태도"], "시적 분위기 조성":["시적 분위기를 조성"], "표상":["표상"], "형상화":["형상화"],
+ "명암 이미지":["밝음과 어두움"], "시간의 흐름에 따른 변화":["시간의 흐름에 따른 변화"], "암시":["암시"],
+ "소재 중심의 시상 전개":["동일한 소재를 중심으로 시상을 전개"], "생동감 있는 묘사":["생동감 있게 묘사"],
+ "서술자":["서술자의 비판"], "초점화":["초점화"], "내면 서술":["내면을 서술"], "일반화":["일반화"], "주관화":["주관화"],
+ "합리화":["합리화"], "상대의 생각 헤아리기":["헤아림"], "에둘러 말하기":["에둘러 말하여"], "화자의 대상화":["대상화"],
+ "공간의 의미":["안도감을 나타내는 공간"], "우화":["우화"], "판소리 사설과 장단":["판소리 사설"], "중첩":["중첩"],
+ "풍자·비판":["비판"], "위선":["위선적"], "위계질서":["위계질서"], "세태 비판":["세태를 비판"], "문학론":["문학론"],
+ "화두":["화두"], "칭찬과 당부":["당부","칭찬"]
+};
+function markText(text, terms){
+  const ph=[...new Set(terms.flatMap(t=>MARK[t.n]||[]))].sort((a,b)=>b.length-a.length);
+  const e=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  if(!ph.length) return e(text);
+  const re=new RegExp("("+ph.map(p=>p.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|")+")","g");
+  return text.split(re).map((part,i)=>i%2?`<mark>${e(part)}</mark>`:e(part)).join("");
+}
+
+/* ---------- state ---------- */
+const S = {view:"exam", exam:"26수능", q:"", cat:"", s:""};
+const DEL = new Set(BAKED_DELETED||[]);
+let EDITOR=false, SHOWDEL=false, DB=null;
+const exKey=(t,id)=>"e-"+t.id.slice(2)+"-"+id;
+const isTermDel=t=>DEL.has(t.id);
+const isExDel=(t,id)=>DEL.has(exKey(t,id));
+const visibleTerm=t=>SHOWDEL||!isTermDel(t);
+const liveEx=t=>t.ex.filter(([id])=>SHOWDEL||(!isExDel(t,id)&&!isTermDel(t)));
+function delBtn(key,isDel,lab){return EDITOR?`<button type="button" class="del" data-key="${key}" data-on="${isDel?0:1}">${isDel?"되살리기":lab}</button>`:"";}
+try{const v=JSON.parse(localStorage.getItem("glossary-state")||"{}"); if(v.view) S.view=v.view; if(v.cat!=null) S.cat=v.cat;}catch(e){}
+function save(){try{localStorage.setItem("glossary-state",JSON.stringify({view:S.view,cat:S.cat}))}catch(e){}}
+
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm=s=>s.toLowerCase();
+function workOf(e,q){const w=(WORKS[e]||[]).find(r=>q>=r[0]&&q<=r[1]);return w?w[2]:"";}
+function label(id){const it=ITEMS[id];return `${it.e} ${it.q}번 ${it.c?NO[it.c]:"<보기>"}`;}
+function itemKey(id){const it=ITEMS[id];return it.q*10+it.c;}
+
+/* ---------- controls ---------- */
+$("exam").innerHTML = `<option value="">전체 시험</option>`+Object.entries(EXAMS).map(([k,v])=>`<option value="${k}">${esc(v)}</option>`).join("");
+function fillQ(){
+  const qs=[...new Set(Object.values(ITEMS).filter(i=>!S.exam||i.e===S.exam).map(i=>i.q))].sort((a,b)=>a-b);
+  $("qsel").innerHTML=`<option value="">전체 문항</option>`+qs.map(q=>`<option value="${q}">${q}번</option>`).join("");
+  $("qsel").value=S.q;
+}
+$("cats").innerHTML=[["","전체"],...CATS.map(c=>[c,c])].map(([v,l])=>`<button type="button" class="chip" data-c="${v}">${l}</button>`).join("");
+
+$("views").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;S.view=b.dataset.v;if(S.view==="exam"&&!S.exam){S.exam=Object.keys(EXAMS)[0];}save();render();});
+$("exam").addEventListener("change",e=>{S.exam=e.target.value;S.q="";if(!S.exam&&S.view==="exam")S.view="abc";render();});
+$("qsel").addEventListener("change",e=>{S.q=e.target.value;render();});
+$("cats").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;S.cat=b.dataset.c;save();render();});
+$("search").addEventListener("input",e=>{S.s=e.target.value.trim();render();});
+
+/* ---------- matching ---------- */
+function termText(t){return norm([t.n,t.d,t.k,t.p].join(" "));}
+function exVisible(id){const it=ITEMS[id];return (!S.exam||it.e===S.exam)&&(!S.q||String(it.q)===S.q);}
+
+/* ---------- term views ---------- */
+function termCard(t){
+  const q=norm(S.s);
+  const exs=liveEx(t).filter(([id])=>exVisible(id));
+  const tDel=isTermDel(t);
+  const exHtml=exs.map(([id,note])=>{
+    const it=ITEMS[id]; const d=isExDel(t,id);
+    return `<div class="ex${d&&!tDel?" deleted":""}"><div class="ex-head"><span class="ex-label">${esc(label(id))}</span>${tDel?"":delBtn(exKey(t,id),d,"예시 삭제")}</div>
+      <p class="sj${it.c?"":" bogi"}">${markText(it.t,[t])}</p>
+      <p class="note"><b>판단</b>${esc(note)}</p></div>`;}).join("");
+  return `<article class="term${tDel?" deleted":""}" id="${t.id}">
+    <header><h3>${esc(t.n)}</h3><span class="cat">${esc(t.c)}</span>${delBtn(t.id,tDel,"용어 삭제")}</header>
+    <dl><dt>뜻</dt><dd>${esc(t.d)}</dd><dt>확인할 것</dt><dd>${esc(t.k)}</dd>${t.p?`<dt>헷갈리는 짝</dt><dd>${esc(t.p)}</dd>`:""}</dl>
+    ${exHtml?`<div class="exs">${exHtml}</div>`:""}</article>`;
+}
+function termsFiltered(){
+  const q=norm(S.s);
+  return TERMS.filter(t=>{
+    if(S.cat&&t.c!==S.cat)return false;
+    if(!visibleTerm(t))return false;
+    const exs=liveEx(t).filter(([id])=>exVisible(id));
+    if((S.exam||S.q)&&!exs.length)return false;
+    if(q&&!termText(t).includes(q)&&!exs.some(([id,n])=>norm(ITEMS[id].t+" "+n).includes(q)))return false;
+    return true;});
+}
+
+/* ---------- exam view ---------- */
+function renderExam(){
+  const q=norm(S.s);
+  const ids=Object.keys(ITEMS).filter(id=>ITEMS[id].e===S.exam).sort((a,b)=>itemKey(a)-itemKey(b));
+  // 용어별 대표 위치: 선지 우선, 없으면 <보기>
+  const primary={}, occ={}, linked={};
+  TERMS.forEach(t=>{
+    if(!visibleTerm(t))return;
+    const its=liveEx(t).map(e=>e[0]).filter(id=>ITEMS[id].e===S.exam).sort((a,b)=>itemKey(a)-itemKey(b));
+    if(!its.length)return;
+    const sj=its.filter(id=>ITEMS[id].c>0);
+    primary[t.id]=sj.length?sj[0]:its[0];
+    its.forEach(id=>{ (linked[id]=linked[id]||[]).push(t); if(id===primary[t.id]||ITEMS[id].c>0)(occ[id]=occ[id]||[]).push(t); });
+  });
+  let html="", nItems=0, shownTerms=new Set();
+  let curQ=null, buf="";
+  const flush=()=>{ if(buf){ html+=`<section class="q"><h2>${curQ}번<small>${esc(workOf(S.exam,curQ))}</small></h2>${buf}</section>`; } buf=""; };
+  ids.forEach(id=>{
+    const it=ITEMS[id];
+    if(S.q&&String(it.q)!==S.q)return;
+    let ts=(occ[id]||[]).filter(t=>!S.cat||t.c===S.cat);
+    if(q){ const itemHit=norm(it.t).includes(q); ts=ts.filter(t=>itemHit||termText(t).includes(q)); }
+    if(!ts.length)return;
+    if(it.q!==curQ){flush();curQ=it.q;}
+    nItems++;
+    const full=ts.filter(t=>primary[t.id]===id), refs=ts.filter(t=>primary[t.id]!==id);
+    full.forEach(t=>shownTerms.add(t.id));
+    const head = it.c ? `<p class="item-text"><span class="no">${NO[it.c]}</span>${markText(it.t,linked[id]||[])}</p>`
+                      : `<p class="item-text bogi"><span class="bogi-tag">&lt;보기&gt;</span>${markText(it.t,linked[id]||[])}</p>`;
+    buf+=`<div class="item">${head}
+      ${full.map(t=>{const td=isTermDel(t), d=td||isExDel(t,id);
+        return `<div class="eterm${d?" deleted":""}" id="e-${t.id}"><h4>${esc(t.n)}<span class="cat">${esc(t.c)}</span>${td?delBtn(t.id,true,""):delBtn(exKey(t,id),d,"이 선지에서 빼기")}</h4>
+        <dl><dt>뜻</dt><dd>${esc(t.d)}</dd><dt>확인할 것</dt><dd>${esc(t.k)}</dd></dl></div>`;}).join("")}
+      ${refs.length?`<div class="refs">${refs.map(t=>`<button type="button" class="ref" data-go="e-${t.id}">${esc(t.n)} → ${esc(label(primary[t.id]).replace(S.exam+" ",""))}에서 설명</button>`).join("")}</div>`:""}
+    </div>`;
+  });
+  flush();
+  $("count").textContent=`선지 ${nItems}개 · 용어 ${shownTerms.size}개`;
+  return html;
+}
+
+/* ---------- render ---------- */
+function render(){
+  document.querySelectorAll("#views button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===S.view));
+  document.querySelectorAll("#cats button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.c===S.cat));
+  $("exam").value=S.exam; fillQ();
+  const sd=$("showdel"); sd.hidden=!EDITOR||(!DEL.size&&!SHOWDEL);
+  sd.setAttribute("aria-pressed",SHOWDEL); sd.textContent=`지운 항목 보기 (${DEL.size})`;
+  let html="";
+  if(S.view==="exam"){ html=renderExam(); }
+  else{
+    const ts=termsFiltered();
+    if(S.view==="abc"){ html=ts.slice().sort((a,b)=>a.n.localeCompare(b.n,"ko")).map(termCard).join(""); }
+    else{ html=CATS.map(c=>{const g=ts.filter(t=>t.c===c);return g.length?`<h2 class="cathead">${c}</h2>`+g.map(termCard).join(""):"";}).join(""); }
+    $("count").textContent=`용어 ${ts.length}개`;
+  }
+  $("out").innerHTML=html||`<p class="empty">조건에 맞는 항목이 없습니다. 검색어나 필터를 바꿔 보세요.</p>`;
+}
+$("showdel").addEventListener("click",()=>{SHOWDEL=!SHOWDEL;render();});
+function say(m){$("msg").textContent=m;}
+async function toggleDel(key,on){
+  if(!DB)return;
+  const ref=DB.collection("deleted").doc(key);
+  const prev=DEL.has(key);
+  on?DEL.add(key):DEL.delete(key); render();
+  try{
+    if(on) await ref.set({kind:key.startsWith("t-")?"term":"example",at:new Date().toISOString()});
+    else await ref.delete();
+    say(on?"삭제했습니다. ‘지운 항목 보기’에서 되살릴 수 있습니다.":"되살렸습니다.");
+  }catch(err){
+    prev?DEL.add(key):DEL.delete(key); render();
+    say(err&&err.code==="invalid_argument"?"이 계정에는 삭제 권한이 없습니다.":"저장하지 못했습니다. 잠시 뒤 다시 눌러 주세요.");
+  }
+}
+$("out").addEventListener("click",e=>{
+  const d=e.target.closest(".del"); if(d){toggleDel(d.dataset.key,d.dataset.on==="1");return;}
+  const b=e.target.closest(".ref"); if(!b)return;
+  const el=document.getElementById(b.dataset.go); if(!el)return;
+  el.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"});
+  el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash");
+});
+$("sub").textContent=`${Object.values(EXAMS).join(", ")} 문학 · 용어 ${TERMS.length}개 · 선지와 <보기> ${Object.keys(ITEMS).length}개`;
+render();
+(async function initDb(){
+  if(DIST||!(window.claude&&window.claude.use))return;
+  try{
+    const [user,db]=await Promise.all([claude.use("user"),claude.use("db")]);
+    if(!db)return;
+    DB=db; EDITOR=user?await user.canEdit():false;
+    db.collection("deleted").onSnapshot(snap=>{
+      DEL.clear(); snap.docs.forEach(d=>{if(d.exists)DEL.add(d.id);}); render();
+    },()=>{EDITOR=false;render();});
+    render();
+  }catch(e){}
+})();
+</script>
+
+</html>
